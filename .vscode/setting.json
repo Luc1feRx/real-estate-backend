@@ -1,0 +1,5 @@
+{
+  "intelephense.files.maxMemory": 8192,
+  "intelephense.environment.includePaths": ["vendor"],
+  "intelephense.diagnostics.undefinedTypes": true
+}
