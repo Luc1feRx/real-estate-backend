@@ -3,9 +3,7 @@
 namespace App\Providers;
 
 
-use Filament\Facades\Filament;
-use Filament\Support\Assets\Css;
-use Filament\Support\Facades\FilamentAsset;
+use Filament\Support\Facades\FilamentTimezone;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        
+        // en: America/New_York
+        // vn: Asia/Ho_Chi_Minh
+        FilamentTimezone::set('Asia/Ho_Chi_Minh');
     }
 }
