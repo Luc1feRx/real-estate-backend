@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Categories\Schemas;
 
+use App\Models\Category;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -27,25 +28,33 @@ class CategoryForm
                         })
                         ->required()
                         ->maxLength(255)
-                        ->minLength(3)
-                        ->columns(1),
+                        ->minLength(3)->columnSpan(2),
                     TextInput::make('slug')
                         ->label('Slug')
                         ->required()
                         ->maxLength(255)
                         ->minLength(3)
-                        ->columns(1),
+                        ->columnSpan(2),
                     Select::make('status')
                         ->options([
-                            'draft' => 'Draft',
-                            'reviewing' => 'Reviewing',
-                            'published' => 'Published',
-                        ]),
+                            Category::ACTIVE => 'Active',
+                            Category::INACTIVE => 'Inactive',
+                        ])
+                        ->required()
+                        ->columnSpan(2),
                     RichEditor::make('description')
                         ->columnSpan(2),
                     FileUpload::make('image')
-                        ->required(),
-                ])->columnSpan(2),
+                        ->image()                   // báo là file ảnh => có thumbnail
+                        ->previewable(true)         // bật preview (mặc định là true)
+                        ->openable()                // click mở ảnh
+                        ->downloadable()
+                        ->disk('public')            // dùng disk public
+                        ->directory('categories')   // thư mục lưu
+                        ->visibility('public')
+                        ->maxSize(2048)
+                        ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->columnSpan(2),
+                ])->columnSpanFull(),
             ]);
     }
 }
