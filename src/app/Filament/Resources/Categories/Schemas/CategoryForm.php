@@ -35,6 +35,16 @@ class CategoryForm
                         ->maxLength(255)
                         ->minLength(3)
                         ->columnSpan(2),
+                    Select::make('parent_id')
+                        ->label('Danh mục cha')
+                        ->relationship(
+                            name: 'parent',
+                            titleAttribute: 'name'
+                        )
+                        ->searchable()
+                        ->preload()
+                        ->placeholder('— (Danh mục gốc) —')
+                        ->columnSpan(2),
                     Select::make('status')
                         ->options([
                             Category::ACTIVE => 'Active',
